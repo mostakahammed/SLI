@@ -35,3 +35,31 @@ function showTime(){
 }
 
 showTime();
+
+const droparea = document.querySelector('.dragNdropBox');
+const dropareaTex = document.querySelector('#dropareaText');
+
+droparea.addEventListener("dragover", (e)=>{
+	e.preventDefault(); 
+	droparea.classList.add("hover_file");
+});
+
+droparea.addEventListener("dragleave", ()=>{
+	droparea.classList.remove("hover_file");
+});
+
+droparea.addEventListener("drop", (e)=>{
+	e.preventDefault(); 
+	
+	const file = e.dataTransfer.files[0];
+	const filetype = file.type;
+	droparea.classList.remove("hover_file");
+
+	if(filetype == "image/png" || filetype == "image/jpg" || filetype == "image/jpeg"){
+		dropareaTex.innerText = file.name + ' is Added';
+		dropareaTex.classList.add("text-success")
+	}else{
+		dropareaTex.innerText = file.name + ' is unsupported file';
+		dropareaTex.classList.add("text-danger")
+	}
+});
